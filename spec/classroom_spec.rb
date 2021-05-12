@@ -3,22 +3,22 @@ require './lib/classroom'
 
 describe Classroom do
   context 'Attributes' do
-    xit 'is a classroom' do
+    it 'is a classroom' do
       classroom = Classroom.new('History', 4)
       expect(classroom).to be_an_instance_of(Classroom)
     end
 
-    xit 'has a subject' do
+    it 'has a subject' do
       classroom = Classroom.new('History', 4)
       expect(classroom.subject).to eq('History')
     end
 
-    xit 'has a capacity' do
+    it 'has a capacity' do
       classroom = Classroom.new('History', 4)
       expect(classroom.capacity).to eq 4
     end
 
-    xit 'has no students by default' do
+    it 'has no students by default' do
       classroom = Classroom.new('History', 4)
       expect(classroom.students).to eq []
     end
@@ -27,7 +27,7 @@ describe Classroom do
   # Iteration 2
 
   context 'Students' do
-    xit 'returns a list of students' do
+    it 'returns a list of students' do
       classroom = Classroom.new('History', 4)
       classroom.add_student('Mike')
       classroom.add_student('Megan')
@@ -36,13 +36,61 @@ describe Classroom do
       expect(classroom.students).to eq ['Mike', 'Megan', 'Bob']
     end
 
-    xit 'returns a list of uppercased names' do
+    it 'returns a list of uppercased names' do
       classroom = Classroom.new('History', 4)
       classroom.add_student('Mike')
       classroom.add_student('Megan')
       classroom.add_student('Bob')
 
       expect(classroom.yell_at_students).to eq ['MIKE', 'MEGAN', 'BOB']
+    end
+
+    it 'returns a list of students' do
+      classroom = Classroom.new('History', 4)
+      classroom.add_student('Mike')
+      classroom.add_student('Megan')
+      classroom.add_student('Bob')
+
+      expect(classroom.students).to eq ['Mike', 'Megan', 'Bob']
+    end
+
+    it 'returns whether the classroom is over capacity' do
+      classroom = Classroom.new('History', 4)
+
+      expect(classroom.over_capactity).to eq(true)
+    end
+
+    it 'adds students to the list' do
+      classroom = Classroom.new('History', 4)
+      classroom.add_student('Eve')
+      classroom.add_student('Alice')
+
+      expect(classroom.students).to eq ['Eve', 'Alice']
+    end
+
+    it 'returns the classroom is over capacity' do
+      classroom = Classroom.new('History', 4)
+
+      expect(classroom.over_capactity).to eq(true)
+    end
+
+    it 'adds students to the list' do
+      classroom = Classroom.new('History', 4)
+      classroom.add_student('Mike')
+      classroom.add_student('Megan')
+      classroom.add_student('Bob')
+      classroom.add_student('James')
+      classroom.add_student('Cat')
+      classroom.add_student('Alice')
+
+      expect(classroom.students).to eq ['Mike', 'Megan', 'Bob', 'James', 'Cat', 'Alice']
+    end
+
+    it 'removes a student from the list' do
+      classroom = Classroom.new('History', 4)
+      classroom.kick_out
+
+      expect(classroom.students).to eq ['Megan', 'Bob', 'James', 'Cat', 'Alice']
     end
   end
 end
